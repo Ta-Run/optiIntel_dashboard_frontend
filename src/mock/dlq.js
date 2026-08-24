@@ -1,0 +1,165 @@
+export const dlqMessages = [
+  {
+    id: 'MSG-87291',
+    fileId: 'FILE-10021',
+    queue: 'file-processing-dlq',
+    failureReason: 'Database timeout',
+    retryCount: 5,
+    createdAt: '2026-08-20T10:43:00Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10021',
+      fileName: 'customer_orders_2026.csv',
+      action: 'process',
+      attempt: 5,
+      correlationId: 'corr-a8f3b2c1',
+    },
+    error: 'ConnectionTimeoutError: Database connection timed out after 30000ms',
+    stackTrace: `ConnectionTimeoutError: Database connection timed out after 30000ms
+    at DatabasePool.acquire (/app/services/database/pool.js:142:11)
+    at ProcessingWorker.handleMessage (/app/workers/processing.js:89:24)
+    at SQSConsumer.processMessage (/app/queue/consumer.js:56:18)
+    at async Promise.all (index 0)
+    at SQSConsumer.poll (/app/queue/consumer.js:34:5)`,
+    firstFailure: '2026-08-20T10:40:00Z',
+    lastFailure: '2026-08-20T10:43:00Z',
+  },
+  {
+    id: 'MSG-87290',
+    fileId: 'FILE-10023',
+    queue: 'file-processing-dlq',
+    failureReason: 'Processing service unavailable',
+    retryCount: 3,
+    createdAt: '2026-08-20T10:35:45Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10023',
+      fileName: 'supplier_contract.pdf',
+      action: 'process',
+      attempt: 3,
+    },
+    error: 'ServiceUnavailableError: Processing service returned 503',
+    stackTrace: `ServiceUnavailableError: Processing service returned 503
+    at HttpClient.request (/app/lib/http.js:78:9)
+    at ProcessingWorker.invoke (/app/workers/processing.js:45:20)`,
+    firstFailure: '2026-08-20T10:35:10Z',
+    lastFailure: '2026-08-20T10:35:45Z',
+  },
+  {
+    id: 'MSG-87289',
+    fileId: 'FILE-10026',
+    queue: 'validation-dlq',
+    failureReason: 'Duplicate file detected',
+    retryCount: 2,
+    createdAt: '2026-08-20T10:20:15Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10026',
+      fileName: 'duplicate_orders.csv',
+      action: 'validate',
+      duplicateOf: 'FILE-9980',
+    },
+    error: 'DuplicateFileError: File hash matches existing file FILE-9980',
+    stackTrace: `DuplicateFileError: File hash matches existing file FILE-9980
+    at ValidationService.checkDuplicate (/app/services/validation.js:112:13)
+    at ValidationWorker.handle (/app/workers/validation.js:34:18)`,
+    firstFailure: '2026-08-20T10:20:08Z',
+    lastFailure: '2026-08-20T10:20:15Z',
+  },
+  {
+    id: 'MSG-87288',
+    fileId: 'FILE-10015',
+    queue: 'file-processing-dlq',
+    failureReason: 'Unsupported file format',
+    retryCount: 1,
+    createdAt: '2026-08-19T16:05:00Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10015',
+      fileName: 'report.doc',
+      action: 'process',
+    },
+    error: 'UnsupportedFormatError: File format .doc is not supported',
+    stackTrace: `UnsupportedFormatError: File format .doc is not supported
+    at FormatValidator.validate (/app/services/validation/format.js:28:11)`,
+    firstFailure: '2026-08-19T16:05:00Z',
+    lastFailure: '2026-08-19T16:05:00Z',
+  },
+  {
+    id: 'MSG-87287',
+    fileId: 'FILE-10012',
+    queue: 'notification-dlq',
+    failureReason: 'Notification delivery failed',
+    retryCount: 4,
+    createdAt: '2026-08-19T14:30:00Z',
+    status: 'Retrying',
+    payload: {
+      fileId: 'FILE-10012',
+      notificationType: 'processing_complete',
+      recipient: 'ops-team@example.com',
+    },
+    error: 'NotificationError: SMTP connection refused',
+    stackTrace: `NotificationError: SMTP connection refused
+    at EmailService.send (/app/services/notification/email.js:55:9)`,
+    firstFailure: '2026-08-19T14:00:00Z',
+    lastFailure: '2026-08-19T14:30:00Z',
+  },
+  {
+    id: 'MSG-87286',
+    fileId: 'FILE-10008',
+    queue: 'file-processing-dlq',
+    failureReason: 'Message queue processing failed',
+    retryCount: 6,
+    createdAt: '2026-08-19T12:00:00Z',
+    status: 'Resolved',
+    payload: {
+      fileId: 'FILE-10008',
+      fileName: 'batch_export.csv',
+      action: 'process',
+    },
+    error: 'QueueError: Failed to acknowledge message',
+    stackTrace: `QueueError: Failed to acknowledge message
+    at SQSConsumer.acknowledge (/app/queue/consumer.js:92:11)`,
+    firstFailure: '2026-08-19T11:30:00Z',
+    lastFailure: '2026-08-19T12:00:00Z',
+  },
+  {
+    id: 'MSG-87285',
+    fileId: 'FILE-10005',
+    queue: 'file-processing-dlq',
+    failureReason: 'File processing timeout',
+    retryCount: 3,
+    createdAt: '2026-08-19T10:00:00Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10005',
+      fileName: 'large_dataset.csv',
+      action: 'process',
+      timeoutMs: 300000,
+    },
+    error: 'ProcessingTimeoutError: Processing exceeded 300000ms limit',
+    stackTrace: `ProcessingTimeoutError: Processing exceeded 300000ms limit
+    at Timeout._onTimeout (/app/workers/processing.js:120:9)`,
+    firstFailure: '2026-08-19T09:55:00Z',
+    lastFailure: '2026-08-19T10:00:00Z',
+  },
+  {
+    id: 'MSG-87284',
+    fileId: 'FILE-10002',
+    queue: 'upload-dlq',
+    failureReason: 'File upload failed',
+    retryCount: 2,
+    createdAt: '2026-08-19T08:30:00Z',
+    status: 'Failed',
+    payload: {
+      fileId: 'FILE-10002',
+      fileName: 'corrupted_data.json',
+      action: 'upload',
+    },
+    error: 'UploadError: S3 multipart upload failed at part 3/5',
+    stackTrace: `UploadError: S3 multipart upload failed at part 3/5
+    at S3Uploader.uploadPart (/app/services/upload/s3.js:88:11)`,
+    firstFailure: '2026-08-19T08:25:00Z',
+    lastFailure: '2026-08-19T08:30:00Z',
+  },
+];
