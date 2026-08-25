@@ -1,13 +1,16 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://13.48.114.84:4566g/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://13.48.114.84:4566/api/v1';
+
 
 function buildUrl(path, params = {}) {
-  const url = new URL(`${API_BASE}${path}`, window.location.origin);
+  const url = new URL(`${API_BASE}${path}`);
+
   Object.entries(params).forEach(([key, value]) => {
     if (value != null && value !== '') {
       url.searchParams.set(key, String(value));
     }
   });
-  return url.pathname + url.search;
+
+  return url.toString();
 }
 
 async function handleResponse(response) {
