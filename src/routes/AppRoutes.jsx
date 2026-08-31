@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import DashboardLayout from '../components/Layout/DashboardLayout';
+import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
+import Login from '../pages/Login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Files from '../pages/Files/Files';
 import FileUploadPage from '../pages/Files/FileUploadPage';
@@ -16,7 +18,15 @@ import Settings from '../pages/Settings/Settings';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<DashboardLayout />}>
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="files" element={<Files />} />

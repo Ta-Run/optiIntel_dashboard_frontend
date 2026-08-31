@@ -111,12 +111,12 @@ export default function AuditLogs() {
         <SkeletonTable rows={10} cols={7} />
       ) : error ? (
         <ErrorState title="Unable to load audit logs" onRetry={refetch} />
-      ) : logs?.length === 0 ? (
+      ) : (logs ?? []).length === 0 ? (
         <EmptyState title="No audit logs found" description="No logs match your current filters." />
       ) : (
         <DataTable
           columns={columns}
-          data={logs}
+          data={logs ?? []}
           currentPage={page}
           onPageChange={setPage}
         />

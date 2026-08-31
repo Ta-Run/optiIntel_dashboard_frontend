@@ -1,26 +1,15 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useCallback } from 'react';
+import { showToast } from '../utils/toast';
 
 const ToastContext = createContext(null);
 
-let toastId = 0;
-
 export function ToastProvider({ children }) {
-  const [toasts, setToasts] = useState([]);
-
   const addToast = useCallback((message, type = 'success') => {
-    const id = ++toastId;
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
-  }, []);
-
-  const removeToast = useCallback((id) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+    showToast(message, type);
   }, []);
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+    <ToastContext.Provider value={{ addToast }}>
       {children}
     </ToastContext.Provider>
   );

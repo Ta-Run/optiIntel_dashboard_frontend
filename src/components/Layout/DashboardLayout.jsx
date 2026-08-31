@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
 import Navbar from '../Navbar/Navbar';
-import ToastContainer from '../Toast/ToastContainer';
 import { useSidebar } from '../../context/SidebarContext';
 
 export default function DashboardLayout() {
@@ -18,7 +17,6 @@ export default function DashboardLayout() {
       >
         <Outlet />
       </main>
-      <ToastContainer />
     </div>
   );
 }

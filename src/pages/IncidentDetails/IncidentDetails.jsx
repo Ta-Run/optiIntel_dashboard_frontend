@@ -67,7 +67,7 @@ export default function IncidentDetails() {
       setConfirmAction(null);
       refetch();
     } catch {
-      addToast('Action failed', 'error');
+      // Error toast shown by API client
     } finally {
       setActionLoading(false);
     }
@@ -81,7 +81,7 @@ export default function IncidentDetails() {
       setShowAssign(false);
       refetch();
     } catch {
-      addToast('Failed to assign incident', 'error');
+      // Error toast shown by API client
     } finally {
       setActionLoading(false);
     }

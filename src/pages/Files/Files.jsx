@@ -48,7 +48,7 @@ export default function Files() {
       setRetryTarget(null);
       refetch();
     } catch {
-      addToast('Failed to retry file processing', 'error');
+      // Error toast shown by API client
     } finally {
       setRetryLoading(false);
     }
@@ -189,7 +189,7 @@ export default function Files() {
         <SkeletonTable rows={8} cols={9} />
       ) : error ? (
         <ErrorState title="Unable to load files" onRetry={refetch} />
-      ) : files?.length === 0 ? (
+      ) : (files ?? []).length === 0 ? (
         <EmptyState
           title="No files uploaded yet"
           description="Upload your first file to get started with processing."
@@ -197,7 +197,7 @@ export default function Files() {
       ) : (
         <DataTable
           columns={columns}
-          data={files}
+          data={files ?? []}
           onRowClick={(row) => navigate(`/files/${row.id}`)}
           currentPage={page}
           onPageChange={setPage}

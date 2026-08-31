@@ -40,7 +40,7 @@ export default function FileDetails() {
       setConfirmAction(null);
       refetch();
     } catch {
-      addToast('Action failed', 'error');
+      // Error toast shown by API client
     } finally {
       setActionLoading(false);
     }
